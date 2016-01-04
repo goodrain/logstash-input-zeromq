@@ -143,7 +143,11 @@ class LogStash::Inputs::ZeroMQ < LogStash::Inputs::Base
           rc2 = @zsocket.recv_string(m2)
           error_check(rc2, "in recv_string")
           @logger.debug("ZMQ receiving", :event => m2)
-          msg = m2
+          m3 = ''
+          rc3 = @zsocket.recv_string(m3)
+          error_check(rc3, "in recv_string")
+          @logger.debug("ZMQ receiving", :event => m3)
+          msg = m3
         end
         @codec.decode(msg) do |event|
           event["host"] ||= host
